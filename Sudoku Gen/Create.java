@@ -12,22 +12,22 @@ import javax.swing.border.LineBorder;
 
 public class Create {
 
-	int[][] puzzle = new int[9][9];
-	int[][] quest = new int[9][9];
-	int[][] ans = new int[9][9];
+	int[][] puzzle = new int[9][9];		// Stores the Answer Key (Solution)
+	int[][] quest = new int[9][9];		// Stores the Question (Puzzle)
+	int[][] ans = new int[9][9];		// Stores the Answer submitted by the user
 
-	int br,bc;
-	int e;
-	int rf=0,cf=0;
+	int br,bc;		// Used for finding the 3x3 box that the element belongs in
+	int e;			// Used to check if program is stuck in some place
+	int rf=0,cf=0;		// Used for backtracking
 	
-	int box=0;
+	int box=0;		// Gives the 3x3 box (1 to 9)
 	
-	JLabel[][] lab = new JLabel[9][9];
-	JTextField[][] text = new JTextField[9][9];
+	JLabel[][] lab = new JLabel[9][9];		// Creates the labels which store the fixed numbers
+	JTextField[][] text = new JTextField[9][9];		// Creates the textfields in which numbers are to be inserted
 	
-	JFrame frame = new JFrame();
+	JFrame frame = new JFrame();		// Creates the Base JFrame window
 	
-	JPanel[] SudPanel = new JPanel[9];
+	JPanel[] SudPanel = new JPanel[9];		// Creates the base JPanel for 9 3x3 boxes
 	
 	void Creater() {				// Creates the Matrix
 		
@@ -79,7 +79,7 @@ public class Create {
 		return 0;
 	}
 	
-	void CopyMatrix() {			// Copies the Solution(puzzle) into Question(quest)
+	void CopyMatrix() {			// Copies the Solution (puzzle) into Question (quest)
 		
 		int r=0,c=0;
 		for(r=0;r<9;r++) {
@@ -243,7 +243,7 @@ public class Create {
 	public void CreateGUI() {		// Creates the grid and the rest of the GUI
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600,800);
+		frame.setSize(615,807);
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.gray);
 		frame.setLayout(null);
@@ -321,6 +321,7 @@ public class Create {
 		else {
 			text[r][c] = new JTextField();
 			text[r][c].setHorizontalAlignment(JTextField.CENTER);
+			text[r][c].setFont(new Font("Calibri", Font.BOLD, 30));
 			FindBox(r, c);
 			SudPanel[box].add(text[r][c]);
 		}
@@ -364,6 +365,7 @@ public class Create {
 		else {
 			text[r][c] = new JTextField();
 			text[r][c].setHorizontalAlignment(JTextField.CENTER);
+			text[r][c].setFont(new Font("Calibri", Font.BOLD, 30));
 			FindBox(r, c);
 			SudPanel[box].add(text[r][c]);
 		}
@@ -478,6 +480,12 @@ public class Create {
 		RemoveLabel();
 		ChangeNum();
 		SetVisible();
+	}
+	void NewTerminal() {
+		SetZero();
+		Creater();
+		CopyMatrix();
+		Poke();
 	}
 	
 	void Exit() {		// Exits the program
